@@ -1,1 +1,1 @@
-
+const someNews = document.querySelector;
