@@ -16,3 +16,11 @@ img {
   display: block;
   max-width: 100%;
 }
+.field {
+  display: flex;
+  gap: 20px;
+}
+.value,
+.label {
+  font-size: 30px;
+}
