@@ -6,8 +6,8 @@ const text = document.querySelector('#datetime-picker');
 const buttonStart = document.querySelector('button[data-start]');
 const divTimer = document.querySelector('.timer');
 const days = document.querySelector('span[data-days]');
-const hours = documnet.querySelector('span[data-hours]');
-const minutes = documnet.querySelector('span[data-minutes]');
+const hours = document.querySelector('span[data-hours]');
+const minutes = document.querySelector('span[data-minutes]');
 const seconds = document.querySelector('span[data-seconds]');
 
 buttonStart.disabled = true;
@@ -24,11 +24,11 @@ const options = {
     } else {
       buttonStart.disabled = false;
     }
-    console.log(selectedDates[0]);
   },
 };
 
-flatpickr(selector, options);
+flatpickr(text, options);
+
 function convertMs(ms) {
   // Number of milliseconds per unit of time
   const second = 1000;
@@ -53,7 +53,7 @@ console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
 console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
 
 function addLeadingZero(value) {
-  return value.toString(2, '0');
+  return value.toString().padStart(2, '0');
 }
 
 buttonStart.addEventListener('click', () => {

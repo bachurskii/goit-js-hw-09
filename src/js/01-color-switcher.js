@@ -1,7 +1,7 @@
 const buttonStart = document.querySelector('button[data-start]');
 const buttonStop = document.querySelector('button[data-stop]');
 let changesButton;
-
+buttonStop.disabled = true;
 buttonStart.addEventListener('click', () => {
   buttonStart.disabled = true;
   buttonStop.disabled = false;

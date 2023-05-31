@@ -18,9 +18,11 @@ const inputDelay = document.querySelector('input[name="delay"]');
 const inputStep = document.querySelector('input[name="step"]');
 const inputAmount = document.querySelector('input[name="amount"]');
 const button = document.querySelector('button[type="submit"]');
+const form = document.querySelector('.form');
 
 button.addEventListener('click', event => {
   event.preventDefault();
+
   let delay = Number(inputDelay.value);
   let step = Number(inputStep.value);
   for (let i = 0; i < inputAmount.value; i++) {
@@ -36,4 +38,5 @@ button.addEventListener('click', event => {
         );
       });
   }
+  form.reset();
 });
