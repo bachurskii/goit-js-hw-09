@@ -23,9 +23,15 @@ const form = document.querySelector('.form');
 button.addEventListener('click', event => {
   event.preventDefault();
 
-  let delay = Number(inputDelay.value);
-  let step = Number(inputStep.value);
-  for (let i = 0; i < inputAmount.value; i++) {
+  const delay = Number(inputDelay.value);
+  const step = Number(inputStep.value);
+  const amount = Number(inputAmount.value);
+
+  if (step < 0 || delay < 0 || amount <= 0) {
+    Notiflix.Notify.failure('Invalid input values');
+    return;
+  }
+  for (let i = 0; i < amount; i++) {
     createPromise(1 + i, delay + i * step)
       .then(({ position, delay }) => {
         Notiflix.Notify.success(

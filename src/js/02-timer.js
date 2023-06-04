@@ -4,6 +4,7 @@ import Notiflix from 'notiflix';
 
 const text = document.querySelector('#datetime-picker');
 const buttonStart = document.querySelector('button[data-start]');
+const buttonReset = document.querySelector('button[data-reset]');
 const divTimer = document.querySelector('.timer');
 const days = document.querySelector('span[data-days]');
 const hours = document.querySelector('span[data-hours]');
@@ -11,6 +12,7 @@ const minutes = document.querySelector('span[data-minutes]');
 const seconds = document.querySelector('span[data-seconds]');
 
 buttonStart.disabled = true;
+let countdownInterval;
 
 const options = {
   enableTime: true,
@@ -52,23 +54,39 @@ function addLeadingZero(value) {
   return value.toString().padStart(2, '0');
 }
 
-buttonStart.addEventListener('click', () => {
-  let timer = setInterval(() => {
-    let countDownTime = new Date(text.value) - new Date();
-    buttonStart.disabled = true;
-    if (countDownTime >= 0) {
-      let times = convertMs(countDownTime);
-      days.textContent = addLeadingZero(times.days);
-      hours.textContent = addLeadingZero(times.hours);
-      minutes.textContent = addLeadingZero(times.minutes);
-      seconds.textContent = addLeadingZero(times.seconds);
-      if (countDownTime <= 10000) {
-        divTimer.style.color = 'tomato';
-      }
-    } else {
-      Notiflix.Notify.success('Countdown successful');
-      divTimer.style.color = 'black';
-      clearInterval(timer);
+function startCountdown() {
+  let countDownTime = new Date(text.value) - new Date();
+  buttonStart.disabled = true;
+
+  if (countDownTime >= 0) {
+    let times = convertMs(countDownTime);
+    days.textContent = addLeadingZero(times.days);
+    hours.textContent = addLeadingZero(times.hours);
+    minutes.textContent = addLeadingZero(times.minutes);
+    seconds.textContent = addLeadingZero(times.seconds);
+    if (countDownTime <= 10000) {
+      divTimer.style.color = 'tomato';
     }
-  }, 1000);
+  } else {
+    Notiflix.Notify.success('Countdown successful');
+    divTimer.style.color = 'black';
+    clearInterval(countdownInterval);
+  }
+}
+
+buttonStart.addEventListener('click', () => {
+  countdownInterval = setInterval(startCountdown, 1000);
+  text.disabled = true;
+});
+
+buttonReset.addEventListener('click', () => {
+  clearInterval(countdownInterval);
+  text.disabled = false;
+  text.value = '';
+  days.textContent = '00';
+  hours.textContent = '00';
+  minutes.textContent = '00';
+  seconds.textContent = '00';
+  divTimer.style.color = 'black';
+  buttonStart.disabled = true;
 });
